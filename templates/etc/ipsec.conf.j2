@@ -1,47 +1,47 @@
 # /etc/ipsec.conf - strongSwan IPsec configuration file
 
 config setup
-{% if config_setup_cachecrls != false %}
+{% if config_setup_cachecrls is defined  %}
   cachecrls=yes
 {% else %}
   cachecrls=no
 {% endif %}
-{% if config_setup_uniqueids != false %}
+{% if config_setup_uniqueids is defined  %}
   uniqueids=yes
 {% else %}
   uniqueids=no
 {% endif %}
-{% if config_setup_charondebug != false %}
+{% if config_setup_charondebug is defined  %}
     charondebug={{ config_setup_charondebug }} 
 {% endif %}
 
 conn %default
-{% if conn_default_ikelifetime != false %}
+{% if conn_default_ikelifetime is defined  %}
   # How long the keying channel of a connection (ISAKMP or IKE SA) should last before being renegotiated.
   ikelifetime={{ conn_default_ikelifetime }}
 {% endif %}
-{% if conn_default_lifetime != false %}
+{% if conn_default_lifetime is defined  %}
   # How long a particular instance of a connection (a set of encryption/authentication keys for user packets) should last, from successful negotiation to expiry.
   lifetime={{ conn_default_lifetime }}
 {% endif %}
-{% if conn_default_margintime != false %}
+{% if conn_default_margintime is defined  %}
   # How long a particular instance of a connection (a set of encryption/authentication keys for user packets) should last, from successful negotiation to expiry.
   margintime={{ conn_default_margintime }}
 {% endif %}
-{% if conn_default_keyingtries != false %}
+{% if conn_default_keyingtries is defined  %}
   # How many attempts (a positive integer or %forever) should be made to negotiate a connection, or a replacement for one, before giving up (default 3).
   keyingtries={{ conn_default_keyingtries }}
 {% endif %}
-{% if conn_default_authby != false %}
+{% if conn_default_authby is defined  %}
   # How the two security gateways should authenticate each other
   authby={{ conn_default_authby }}
 {% endif %}
-{% if conn_default_keyexchange != false %}
+{% if conn_default_keyexchange is defined  %}
   # Method of key exchange; which protocol should be used to initialize the connection.
   keyexchange={{ conn_default_keyexchange }}
 {% endif %}
   # Enables the IKEv2 MOBIKE protocol defined by RFC 4555.
-{% if conn_default_mobike != false %}
+{% if conn_default_mobike is defined  %}
   mobike=yes
 {% else %}
   mobike=no
@@ -49,49 +49,49 @@ conn %default
 
 {% for connitem in strongswan_conn %}
 conn {{ connitem.name }}
-{% if connitem.left != false %}
+{% if connitem.left is defined  %}
   # The IP address of the participant's public-network interface or one of several magic values.
   left={{ connitem.left }}
 {% endif %}
-{% if connitem.leftsubnet != false %}
+{% if connitem.leftsubnet is defined  %}
   # Private subnet behind the participant, expressed as network/netmask
   leftsubnet={{ connitem.leftsubnet }}
 {% endif %}
-{% if connitem.leftid != false %}
+{% if connitem.leftid is defined  %}
   # How the participant should be identified for authentication
   leftid={{ connitem.leftid }}
 {% endif %}
   # whether the participant is doing forwarding-firewalling (including masquerading) using iptables or traffic from other participant subnet, which should be turned off for traffic to the other subnet) once the connection is established  
-{% if connitem.leftfirewall != false %}
+{% if connitem.leftfirewall is defined  %}
   leftfirewall=yes
 {% else %}
   leftfirewall=no
 {% endif %}
-{% if connitem.right != false %}
+{% if connitem.right is defined  %}
   # The IP address of the participant's public-network interface or one of several magic values.
   right={{ connitem.right }}
 {% endif %}
-{% if connitem.rightsubnet != false %}
+{% if connitem.rightsubnet is defined  %}
   # Private subnet behind the participant, expressed as network/netmask
   rightsubnet={{ connitem.rightsubnet }}
 {% endif %}
-{% if connitem.rightid != false %}
+{% if connitem.rightid is defined  %}
   # How the participant should be identified for authentication
   rightid={{ connitem.rightid }}
 {% endif %}
-{% if connitem.ike != false %}
+{% if connitem.ike is defined  %}
   # Comma-separated list of IKE/ISAKMP SA encryption/authentication algorithms to be used
   ike={{ connitem.ike }}
 {% endif %}
-{% if connitem.esp != false %}
+{% if connitem.esp is defined  %}
   # Comma-separated list of ESP encryption/authentication algorithms to be used for the connection
   esp={{ connitem.esp }}
 {% endif %}
-{% if connitem.keyexchange is not none %}
+{% if connitem.keyexchange is defined %}
   # Method of key exchange; which protocol should be used to initialize the connection.
   keyexchange={{ connitem.keyexchange }}
 {% endif %}
-{% if connitem.auto != false %}
+{% if connitem.auto is defined  %}
   # What operation, if any, should be done automatically at IPsec startup.
   auto={{ connitem.auto }}
 {% endif %}
