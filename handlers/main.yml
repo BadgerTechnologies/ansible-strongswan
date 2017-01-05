@@ -1,6 +1,7 @@
 # handlers file for strongswan
 ---
 - name: restart strongswan
+  become: yes
   service:
     name: strongswan
     state: restarted
