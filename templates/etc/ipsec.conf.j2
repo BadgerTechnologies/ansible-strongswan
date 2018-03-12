@@ -49,6 +49,30 @@ conn %default
 
 {% for connitem in strongswan_conn %}
 conn {{ connitem.name }}
+{% if connitem.dpdaction is defined %}
+  # controls the use of the Dead Peer Detection protocol (DPD, RFC 3706)
+  dpdaction={{ connitem.dpdaction }}
+{% endif %}
+{% if connitem.dpddelay is defined %}
+  # defines the period time interval with which R_U_THERE messages/INFORMATIONAL exchanges are sent to the peer.
+  dpddelay={{ connitem.dpddelay }}
+{% endif %}
+{% if connitem.dpdtimeout is defined %}
+  # defines the timeout interval, after which all connections to a peer are deleted in case of inactivity.
+  dpdtimeout={{ connitem.dpdtimeout }}
+{% endif %}
+{% if connitem.inactivity is defined %}
+  # defines the timeout interval, after which all connections to a peer are deleted in case of inactivity.
+  inactivity={{ connitem.inactivity }}
+{% endif %}
+{% if connitem.reauth is defined %}
+  # whether rekeying of an IKE_SA should also reauthenticate the peer.
+  reauth={{ connitem.reauth }}
+{% endif %}
+{% if connitem.closeaction is defined %}
+  # defines the action to take if the remote peer unexpectedly closes a CHILD_SA
+  closeaction={{ connitem.closeaction }}
+{% endif %}
 {% if connitem.left is defined  %}
   # The IP address of the participant's public-network interface or one of several magic values.
   left={{ connitem.left }}
