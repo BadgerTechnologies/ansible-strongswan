@@ -85,6 +85,23 @@ conn {{ connitem.name }}
   # What operation, if any, should be done automatically at IPsec startup.
   auto={{ connitem.auto }}
 {% endif %}
+{% if connitem.dpdaction is defined %}
+  # controls the use of the Dead Peer Detection protocol (DPD, RFC 3706)
+  dpdaction={{ connitem.dpdaction }}
+{% endif %}
+{% if connitem.dpddelay is defined %}
+  # defines the period time interval with which R_U_THERE messages/INFORMATIONAL exchanges are sent to the peer.
+  dpddelay={{ connitem.dpddelay }}
+{% endif %}
+{% if connitem.dpdtimeout is defined %}
+  # defines the timeout interval, after which all connections to a peer are deleted in case of inactivity.
+  dpdtimeout={{ connitem.dpdtimeout }}
+{% endif %}
+{% if connitem.inactivity is defined %}
+  # defines the timeout interval, after which all connections to a peer are deleted in case of inactivity.
+  inactivity={{ connitem.inactivity }}
+{% endif %}
+
 
 {% endfor %}
 
