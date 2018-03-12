@@ -101,6 +101,15 @@ conn {{ connitem.name }}
   # defines the timeout interval, after which all connections to a peer are deleted in case of inactivity.
   inactivity={{ connitem.inactivity }}
 {% endif %}
+{% if connitem.reauth is defined %}
+  # whether rekeying of an IKE_SA should also reauthenticate the peer.
+  reauth={{ connitem.reauth }}
+{% endif %}
+{% if connitem.closeaction is defined %}
+  # defines the action to take if the remote peer unexpectedly closes a CHILD_SA
+  closeaction={{ connitem.closeaction }}
+{% endif %}
+
 
 
 {% endfor %}
